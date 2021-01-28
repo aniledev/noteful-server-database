@@ -12,6 +12,9 @@ const foldersService = {
         return rows[0];
       });
   },
+  getFolderById(knex, id) {
+    return knex.from("folders").where("folder_id", id).first();
+  },
 };
 // create method to insert a folder using knex
 // create method to get a specific folder

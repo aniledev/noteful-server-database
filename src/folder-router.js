@@ -24,8 +24,8 @@ folderRouter
       .catch(next);
   })
   .post(bodyParser, (req, res, next) => {
-    const { folderName } = req.body;
-    const newFolder = { folderName };
+    const { folder_name } = req.body;
+    const newFolder = { folder_name };
 
     if (!newFolder) {
       return res.status(400).json({
@@ -37,7 +37,7 @@ folderRouter
       .then((folder) => {
         res
           .status(201)
-          .location(path.posix.join(req.originalUrl, `/${folder.folderId}`))
+          .location(path.posix.join(req.originalUrl, `/${folder.folder_id}`))
           .json(serializedFolder(folder));
       })
       .catch(next);
