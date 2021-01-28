@@ -1,5 +1,3 @@
-const { format } = require("morgan");
-
 // create a service to get all notes using knex
 const notesService = {
   getAllNotes(knex) {
