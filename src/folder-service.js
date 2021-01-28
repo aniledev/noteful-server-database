@@ -3,6 +3,7 @@ const foldersService = {
   getAllFolders(knex) {
     return knex.select("*").from("folders");
   },
+  // create method to insert a folder using knex
   insertFolder(knex, newFolder) {
     return knex
       .insert(newFolder)
@@ -12,16 +13,18 @@ const foldersService = {
         return rows[0];
       });
   },
+  // create method to get a specific folder
   getFolderById(knex, id) {
     return knex.from("folders").where("folder_id", id).first();
   },
+  // create method to delete a folder
   deleteFolder(knex, id) {
     return knex("folders").where("folder_id", id).delete();
-  }
+  },
+  // create method to update a folder
+  updateFolder(knex, updateFolder) {
+    return knex("folders").update(updateFolder);
+  },
 };
-// create method to insert a folder using knex
-// create method to get a specific folder
-// create method to delete a folder
-// create method to update a folder
 
 module.exports = foldersService;
