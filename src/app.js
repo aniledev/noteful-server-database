@@ -36,7 +36,7 @@ app.use(express.json());
 //ROUTES
 // create route for /api/folders using the router
 app.use("/api/folders", folderRouter);
-app.use("/api/notes");
+app.use("/api/notes", noteRouter);
 // create router for /api/notes using the router
 
 app.get("/", (req, res) => {
