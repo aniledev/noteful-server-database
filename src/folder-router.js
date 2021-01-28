@@ -1,7 +1,7 @@
 const path = require("path");
 const express = require("express");
 const xss = require("xss");
-const foldersService = require("./folders-service");
+const foldersService = require("./folder-service");
 
 const folderRouter = express.Router();
 const bodyParser = express.json();
@@ -44,4 +44,12 @@ folderRouter
   });
 
 // create get, delete, and patch routes
-folderRouter.route(":folder_id").module.exports = folderRouter;
+folderRouter
+  .route("/:folder_id")
+  .get((req, res, next) => {
+    res.json(serializedFolder(res.folder));
+  })
+  .delete()
+  .patch();
+
+module.exports = folderRouter;
