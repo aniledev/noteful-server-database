@@ -6,7 +6,8 @@ const helmet = require("helmet");
 const cors = require("cors");
 const winston = require("winston");
 const { NODE_ENV, PORT } = require("./config");
-const folderRouter = require("./folder-router")
+const folderRouter = require("./folder-router");
+const noteRouter = require("./note-router");
 
 const app = express();
 
@@ -34,8 +35,8 @@ app.use(express.json());
 
 //ROUTES
 // create route for /api/folders using the router
-app.use("/api/folders",)
-app.use("/api/notes",)
+app.use("/api/folders", folderRouter);
+app.use("/api/notes");
 // create router for /api/notes using the router
 
 app.get("/", (req, res) => {
