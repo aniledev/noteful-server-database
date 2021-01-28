@@ -15,11 +15,11 @@ const foldersService = {
   },
   // create method to get a specific folder
   getFolderById(knex, id) {
-    return knex.from("folders").where("folder_id", id).first();
+    return knex.from("folders").where("folderId", id).first();
   },
   // create method to delete a folder
   deleteFolder(knex, id) {
-    return knex("folders").where("folder_id", id).delete();
+    return knex("folders").where("folderId", id).delete();
   },
   // create method to update a folder
   updateFolder(knex, updateFolder) {

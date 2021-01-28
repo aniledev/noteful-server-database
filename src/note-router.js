@@ -7,10 +7,10 @@ const noteRouter = express.Router();
 const bodyParser = express.json();
 
 const serializedNote = (note) => ({
-  note_id: note.note_id,
-  note_name: xss(note.note_name),
+  noteId: note.noteId,
+  name: xss(note.name),
   content: xss(note.content),
-  folder_id: note.folder_id,
+  folderId: note.folderId,
   modified: note.modified,
 });
 
@@ -28,8 +28,8 @@ noteRouter
   })
   .post(bodyParser, (req, res, next) => {
     // use object destructing to access the req body and the newNote object
-    const { note_name, content, folder_id } = req.body;
-    const newNote = { note_name, content, folder_id };
+    const { name, content, folderId } = req.body;
+    const newNote = { name, content, folderId };
 
     // validate to ensure that each field of the request body is present/entered
     for (const [key, value] of Object.entries(newNote))
@@ -43,15 +43,15 @@ noteRouter
       .then((note) => {
         res
           .status(201)
-          .location(path.posix.join(req.originalUrl, `/${note.note_id}`))
+          .location(path.posix.join(req.originalUrl, `/${note.noteId}`))
           .json(serializedNote(note));
       })
       .catch(next);
   });
 
-// create get, delete and patch route for /:note_id
+// create get, delete and patch route for /:noteId
 noteRouter
-  .route("/:note_id")
+  .route("/:noteId")
   .get((req, res, next) => {})
   .delete()
   .patch();

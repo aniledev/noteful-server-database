@@ -7,8 +7,8 @@ const folderRouter = express.Router();
 const bodyParser = express.json();
 
 const serializedFolder = (folder) => ({
-  folder_id: folder.folder_id,
-  folder_name: xss(folder.folder_name),
+  folderId: folder.folderId,
+  name: xss(folder.name),
 });
 
 // create get and post routes
@@ -24,8 +24,8 @@ folderRouter
       .catch(next);
   })
   .post(bodyParser, (req, res, next) => {
-    const { folder_name } = req.body;
-    const newFolder = { folder_name };
+    const { name } = req.body;
+    const newFolder = { name };
 
     if (!newFolder) {
       return res.status(400).json({
@@ -37,7 +37,7 @@ folderRouter
       .then((folder) => {
         res
           .status(201)
-          .location(path.posix.join(req.originalUrl, `/${folder.folder_id}`))
+          .location(path.posix.join(req.originalUrl, `/${folder.folderId}`))
           .json(serializedFolder(folder));
       })
       .catch(next);
@@ -45,13 +45,13 @@ folderRouter
 
 // create get, delete, and patch routes
 folderRouter
-  .route("/:folder_id")
+  .route("/:folderId")
   .get((req, res, next) => {
     res.json(serializedFolder(res.folder));
   })
   .delete((res, res, next) => {
     foldersService
-      .deleteFolder(req.app.get("db"), req.params.folder_id)
+      .deleteFolder(req.app.get("db"), req.params.folderId)
       .then(() => {
         // .end() is necessary to end the request response cycle as nothing is sent back using .send()
         res.status(204).end();
@@ -60,8 +60,8 @@ folderRouter
   })
   .patch(bodyParser, (req, res, next) => {
     // perform folder validation before the patch request
-    const { folder_name } = req.body;
-    const folderToUpdate = { folder_name };
+    const { name } = req.body;
+    const folderToUpdate = { name };
 
     const values = Object.values(folderToUpdate).filter(Boolean).length;
 
@@ -69,9 +69,9 @@ folderRouter
     if (values === 0)
       return rest
         .status(400)
-        .json({ error: { message: `Request body must have a folder_name.` } });
+        .json({ error: { message: `Request body must have a name.` } });
     foldersService
-      .updateFolder(req.app.get("db"), req.params.folder_id, folderToUpdate)
+      .updateFolder(req.app.get("db"), req.params.folderId, folderToUpdate)
       .then(() => {
         // use .end() to end the request response cycle because nothing is being sent back
         res.status(204).end();

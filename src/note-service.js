@@ -15,15 +15,15 @@ const notesService = {
   },
   // get a single note by its id
   getNoteById(knex, id) {
-    return knex.from("notes").where("note_id", id).first();
+    return knex.from("notes").where("noteId", id).first();
   },
   // delete a note by its id
   deleteNote(knex, id) {
-    return knex("notes").where("note_id", id).delete();
-    },
+    return knex("notes").where("noteId", id).delete();
+  },
   // update a singular note
   updateNote(knex, id, updatedNote) {
-    return knex("notes").where("note_id", id).update(updatedNote);
+    return knex("notes").where("noteId", id).update(updatedNote);
   },
 };
 
