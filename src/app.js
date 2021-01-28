@@ -9,11 +9,11 @@ const { NODE_ENV, PORT } = require("./config");
 const folderRouter = require("./folder-router");
 const noteRouter = require("./note-router");
 const errorHandler = require("./error-handler");
+const logger = require("./logger");
 
 const app = express();
 
 const morganOption = NODE_ENV === "production" ? "tiny" : "dev";
-
 
 //STANDARD MIDDLEWARE
 app.use(morgan(morganOption));
