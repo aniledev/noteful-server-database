@@ -52,8 +52,34 @@ noteRouter
 // create get, delete and patch route for /:noteId
 noteRouter
   .route("/:noteId")
-  .get((req, res, next) => {})
-  .delete()
-  .patch();
+  .get((req, res, next) => {
+    res.json(serializedNote(res.note));
+  })
+  .delete((req, res, next) => {
+    notesService
+      .deleteNote(req.app.get("db"), req.params.noteId)
+      .then(() => {
+        res.status(204).end();
+      })
+      .catch(next);
+  })
+  .patch(jsonParser, (req, res, next) => {
+    const { name, content, folderId } = req.body;
+    const noteToUpdate = { name, content, folderId };
+
+    const numberOfValues = Object.values(noteToUpdate).filter(Boolean).length;
+    if (numberOfValues === 0)
+      return res.status(400).json({
+        error: {
+          message: `Request body must contain either 'name', 'content' or 'folderId'`,
+        },
+      });
+    notesService
+      .updateNote(req.app.get("db"), req.params.noteId, noteToUpdate)
+      .then(() => {
+        res.status(204).end();
+      })
+      .catch(next);
+  });
 
 module.exports = noteRouter;
