@@ -4,7 +4,6 @@ const express = require("express");
 const morgan = require("morgan");
 const helmet = require("helmet");
 const cors = require("cors");
-const winston = require("winston");
 const { NODE_ENV, PORT } = require("./config");
 const folderRouter = require("./folder-router");
 const noteRouter = require("./note-router");
