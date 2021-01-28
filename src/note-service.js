@@ -5,6 +5,7 @@ const notesService = {
   getAllNotes(knex) {
     return knex.select("*").from("notes");
   },
+  // insert a single note using knex
   insertNotes(knex, newNote) {
     return knex
       .insert(newNote)
@@ -14,12 +15,14 @@ const notesService = {
         return rows[0];
       });
   },
-  getNoteId(knex, id) {
+  // get a single note by its id
+  getNoteById(knex, id) {
     return knex.from("notes").where("note_id", id).first();
   },
+  // delete a note by its id
+  deleteNote(knex, id) {
+    return knex("notes").where("note_id", id).delete();
+  },
 };
-// insert a single note using knex
-// get a single note by its id
-// delete a note by its id
 
 module.exports = notesService;
