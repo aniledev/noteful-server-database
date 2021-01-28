@@ -52,12 +52,31 @@ folderRouter
   .delete((res, res, next) => {
     foldersService
       .deleteFolder(req.app.get("db"), req.params.folder_id)
-        .then(() => {
-          // .end() is necessary to end the request repsonse cycle as nothing is sent back using .send()
+      .then(() => {
+        // .end() is necessary to end the request response cycle as nothing is sent back using .send()
         res.status(204).end();
       })
       .catch(next);
   })
-  .patch()
+  .patch(bodyParser, (req, res, next) => {
+    // perform folder validation before the patch request
+    const { folder_name } = req.body;
+    const folderToUpdate = { folder_name };
+
+    const values = Object.values(folderToUpdate).filter(Boolean).length;
+
+    // if the object is empty
+    if (values === 0)
+      return rest
+        .status(400)
+        .json({ error: { message: `Request body must have a folder_name.` } });
+    foldersService
+      .updateFolder(req.app.get("db"), req.params.folder_id, folderToUpdate)
+      .then(() => {
+        // use .end() to end the request response cycle because nothing is being sent back
+        res.status(204).end();
+      })
+      .catch();
+  });
 
 module.exports = folderRouter;
