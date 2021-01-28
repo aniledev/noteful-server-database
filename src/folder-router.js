@@ -49,7 +49,15 @@ folderRouter
   .get((req, res, next) => {
     res.json(serializedFolder(res.folder));
   })
-  .delete()
-  .patch();
+  .delete((res, res, next) => {
+    foldersService
+      .deleteFolder(req.app.get("db"), req.params.folder_id)
+        .then(() => {
+          // .end() is necessary to end the request repsonse cycle as nothing is sent back using .send()
+        res.status(204).end();
+      })
+      .catch(next);
+  })
+  .patch()
 
 module.exports = folderRouter;
