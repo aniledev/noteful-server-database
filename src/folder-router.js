@@ -12,3 +12,10 @@ const serializedFolder = folder => ({
     folder_name : xss(folder.folder_name)
 });
 
+// create get and post routes
+folderRouter.route("/")
+
+// create get, delete, and patch routes
+folderRouter.route(":folder_id")
+
+module.exports = folderRouter;
