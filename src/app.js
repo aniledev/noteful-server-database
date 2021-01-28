@@ -32,8 +32,13 @@ app.use(cors());
 app.use(express.json());
 
 //ROUTES
+// create route for /api/folders using the router
+app.use("/api/folders",)
+app.use("/api/notes",)
+// create router for /api/notes using the router
+
 app.get("/", (req, res) => {
-  res.send("Hello, world!");
+  res.send("Hello, Express!");
 });
 
 // CATCH ANY THROWN ERRORS AND THEN DEFINE THE ERROR AND KEEP THE APPLICATION RUNNING;
