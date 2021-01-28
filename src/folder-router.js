@@ -7,7 +7,7 @@ const folderRouter = express.Router();
 const bodyParser = express.json();
 
 const serializedFolder = (folder) => ({
-  folderId: folder.folderId,
+  id: folder.id,
   name: xss(folder.name),
 });
 
@@ -37,7 +37,7 @@ folderRouter
       .then((folder) => {
         res
           .status(201)
-          .location(path.posix.join(req.originalUrl, `/${folder.folderId}`))
+          .location(path.posix.join(req.originalUrl, `/${folder.id}`))
           .json(serializedFolder(folder));
       })
       .catch(next);

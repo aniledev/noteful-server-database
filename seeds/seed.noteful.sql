@@ -1,12 +1,12 @@
 insert into folders
-    (name)
+    (folderName)
 values
     ("colors"),
     ("fruits"),
     ("clothes");
 
 insert into notes
-    (name, content, folderId)
+    (noteName, content, folderId)
 values
     ("purple", "purple", 1),
     ("orange", "orange", 1),

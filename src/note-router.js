@@ -7,7 +7,7 @@ const noteRouter = express.Router();
 const bodyParser = express.json();
 
 const serializedNote = (note) => ({
-  noteId: note.noteId,
+  id: note.id,
   name: xss(note.name),
   content: xss(note.content),
   folderId: note.folderId,
@@ -43,7 +43,7 @@ noteRouter
       .then((note) => {
         res
           .status(201)
-          .location(path.posix.join(req.originalUrl, `/${note.noteId}`))
+          .location(path.posix.join(req.originalUrl, `/${note.id}`))
           .json(serializedNote(note));
       })
       .catch(next);
@@ -55,7 +55,7 @@ noteRouter
   // there has to be a condition to catch error for if the note does not exist
   .all((req, res, next) => {
     notesService
-      .getNoteById(req.app.get("db"), req.params.note_id)
+      .getNoteById(req.app.get("db"), req.params.noteId)
       .then((note) => {
         if (!note) {
           return res.status(404).json({
