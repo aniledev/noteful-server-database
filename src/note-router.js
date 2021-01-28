@@ -78,7 +78,7 @@ noteRouter
       })
       .catch(next);
   })
-  .patch(jsonParser, (req, res, next) => {
+  .patch(bodyParser, (req, res, next) => {
     const { name, content, folderId } = req.body;
     const noteToUpdate = { name, content, folderId };
 
