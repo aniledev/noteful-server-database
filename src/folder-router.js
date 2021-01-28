@@ -35,9 +35,9 @@ folderRouter
     foldersService
       .insertFolders(res.app.get("db"), newFolder)
       .then((folder) => {
-          res
-              .status(201)
-              .location(path.posix.join(req.originalUrl, `/${folder.folderId}`));
+        res
+          .status(201)
+          .location(path.posix.join(req.originalUrl, `/${folder.folderId}`))
           .json(serializedFolder(folder));
       })
       .catch(next);
