@@ -13,3 +13,7 @@ const serializedNote = note => ({
     folder_id : note.folder_id,
     modified : note.modified,
 })
+
+// create get and post route for /
+
+// create get, delete and path route for /:note_id
