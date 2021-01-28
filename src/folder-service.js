@@ -15,6 +15,9 @@ const foldersService = {
   getFolderById(knex, id) {
     return knex.from("folders").where("folder_id", id).first();
   },
+  deleteFolder(knex, id) {
+    return knex("folders").where("folder_id", id).delete();
+  }
 };
 // create method to insert a folder using knex
 // create method to get a specific folder
