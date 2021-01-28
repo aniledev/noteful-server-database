@@ -52,6 +52,21 @@ noteRouter
 // create get, delete and patch route for /:noteId
 noteRouter
   .route("/:noteId")
+  // there has to be a condition to catch error for if the note does not exist
+  .all((req, res, next) => {
+    notesService
+      .getNoteById(req.app.get("db"), req.params.note_id)
+      .then((note) => {
+        if (!note) {
+          return res.status(404).json({
+            error: { message: `Note doesn't exist` },
+          });
+        }
+        res.note = note;
+        next();
+      })
+      .catch(next);
+  })
   .get((req, res, next) => {
     res.json(serializedNote(res.note));
   })
