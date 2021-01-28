@@ -22,6 +22,10 @@ const notesService = {
   // delete a note by its id
   deleteNote(knex, id) {
     return knex("notes").where("note_id", id).delete();
+    },
+  // update a singular note
+  updateNote(knex, id, updatedNote) {
+    return knex("notes").where("note_id", id).update(updatedNote);
   },
 };
 
