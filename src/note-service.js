@@ -15,7 +15,7 @@ const notesService = {
       });
   },
   getNoteId(knex, id) {
-    return knex.from("notes").where("note_id, id").first();
+    return knex.from("notes").where("note_id", id).first();
   },
 };
 // insert a single note using knex
